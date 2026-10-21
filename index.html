@@ -1,105 +1,32 @@
-
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10283F">
-  <title>My Mandarin Lab</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, Arial, sans-serif;
-      background: #f4f7fb;
-      color: #17324d;
-    }
-    header {
-      background: #10283f;
-      color: white;
-      padding: 35px 22px;
-      text-align: center;
-    }
-    h1 { margin: 0 0 10px; }
-    main { padding: 20px; max-width: 600px; margin: auto; }
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 12px #0000000d;
-    }
-    button {
-      background: #2476c7;
-      color: white;
-      border: none;
-      padding: 13px;
-      border-radius: 10px;
-      width: 100%;
-      font-size: 16px;
-    }
-    .hanzi { font-size: 34px; margin: 10px 0; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>My Mandarin Lab</h1>
-    <p>Belajar Mandarin Percakapan</p>
-  </header>
-  <main>
-    <div class="card">
-      <h2>Pelajaran Hari Ini</h2>
-      <div class="hanzi">你好</div>
-      <p><b>Pinyin:</b> Nǐ hǎo</p>
-      <p><b>Arti:</b> Halo</p>
-      <button onclick="speak()">Dengarkan Pengucapan</button>
-    </div>
-    <div class="card">
-      <h2>Progress Belajar</h2>
-      <p>Mulai perjalanan belajar Mandarin Anda!</p>
-    </div>
-  </main>
-  
-<script>
-  let currentSpeech = null;
-
-  function speak() {
-    if (!("speechSynthesis" in window)) {
-      alert("Browser tidak mendukung audio.");
-      return;
-    }
-
-    window.speechSynthesis.cancel();
-
-    const speech = new SpeechSynthesisUtterance("你好");
-    speech.lang = "zh-CN";
-    speech.rate = 0.75;
-    speech.pitch = 1;
-    speech.volume = 1;
-
-    const voices = window.speechSynthesis.getVoices();
-    const chineseVoice = voices.find(v =>
-      v.lang.toLowerCase().startsWith("zh")
-    );
-
-    if (chineseVoice) {
-      speech.voice = chineseVoice;
-    }
-
-    speech.onerror = function(event) {
-      if (event.error !== "canceled" &&
-          event.error !== "interrupted") {
-        alert("Audio gagal: " + event.error);
-      }
-    };
-
-    currentSpeech = speech;
-    window.speechSynthesis.speak(speech);
-  }
-
-  window.speechSynthesis.onvoiceschanged = function() {
-    window.speechSynthesis.getVoices();
-  };
-</script>
-
-</body>
-</html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#10283f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Mandarin Lab"><title>My Mandarin Lab v1.1</title><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#18324b;background:#f3f6fb}*{box-sizing:border-box}body{margin:0;padding-bottom:90px}header{background:#10283f;color:white;padding:28px 20px 24px}header h1{font-size:25px;margin:0 0 5px}header p{margin:0;color:#c8d8e8;font-size:13px}.wrap{max-width:700px;margin:auto;padding:17px}.card{background:white;border-radius:17px;padding:19px;margin:0 0 15px;box-shadow:0 4px 18px #152c4410}.muted{color:#6c7d8e;font-size:13px}.hanzi{font-size:36px;font-weight:650;margin:8px 0}.pinyin{color:#3572ac;font-size:17px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.btn{border:0;border-radius:11px;padding:12px 15px;background:#2776c8;color:white;font-weight:650;font-size:15px;cursor:pointer}.btn.secondary{background:#e8f0f9;color:#245b90}.btn:disabled{opacity:.5}.chips{display:flex;gap:7px;overflow:auto;padding:3px 0 13px}.chip{border:1px solid #d6e2ed;background:white;color:#234560;border-radius:20px;padding:9px 12px;white-space:nowrap}.chip.active{background:#173b5b;color:white}.nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #e2e9ef;display:flex;justify-content:space-around;padding:8px 4px calc(9px + env(safe-area-inset-bottom));z-index:3}.nav button{border:0;background:none;color:#718194;font-size:11px;padding:5px;min-width:58px}.nav button.active{color:#1469b3;font-weight:750}.nav .ico{display:block;font-size:22px;margin-bottom:3px}.section-title{font-size:19px;margin:6px 0 13px}.item{border-bottom:1px solid #edf0f3;padding:13px 0}.item:last-child{border:0}.progress{background:#e5edf5;border-radius:10px;height:10px;overflow:hidden}.progress>div{height:100%;background:#2b83cb;transition:width .2s}.answer{display:block;width:100%;margin:9px 0;text-align:left;background:#f2f6fb;border:1px solid #dfe8f0;border-radius:10px;padding:14px;font-size:15px;color:#18324b}.answer.correct{border-color:#2d9b73;background:#e8f7ef}.answer.wrong{border-color:#d66d6d;background:#fff0f0}.center{text-align:center}.flash{min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}.small{font-size:12px}.pill{display:inline-block;padding:5px 9px;background:#e7f2fb;border-radius:15px;font-size:12px;color:#275c8c}.dialogue{border-left:3px solid #a7c8e7;padding:6px 12px;margin:13px 0}.dialogue strong{font-size:22px}.dialogue p{margin:5px 0}button:focus-visible{outline:3px solid #f0ac4e;outline-offset:2px}
+</style></head><body><header><div style="max-width:700px;margin:auto"><h1>My Mandarin Lab 🇨🇳</h1><p>Belajar Mandarin Percakapan • Dasar • v1.1</p></div></header><main class="wrap" id="app"></main><nav class="nav" id="nav"></nav><script>
+const vocab=[
+['你好','Nǐ hǎo','Halo','Sapaan'],['早上好','Zǎoshang hǎo','Selamat pagi','Sapaan'],['晚上好','Wǎnshang hǎo','Selamat malam','Sapaan'],['谢谢','Xièxie','Terima kasih','Sapaan'],['不客气','Bú kèqi','Sama-sama','Sapaan'],['对不起','Duìbuqǐ','Maaf','Sapaan'],
+['我','Wǒ','Saya','Perkenalan'],['你','Nǐ','Kamu','Perkenalan'],['名字','Míngzi','Nama','Perkenalan'],['认识','Rènshi','Berkenalan / mengenal','Perkenalan'],['朋友','Péngyou','Teman','Perkenalan'],['很高兴','Hěn gāoxìng','Senang sekali','Perkenalan'],
+['多少钱','Duōshao qián','Berapa harganya?','Belanja'],['太贵了','Tài guì le','Terlalu mahal','Belanja'],['便宜','Piányi','Murah','Belanja'],['我要这个','Wǒ yào zhège','Saya mau yang ini','Belanja'],['可以','Kěyǐ','Boleh / bisa','Belanja'],['现金','Xiànjīn','Uang tunai','Belanja'],
+['吃饭','Chīfàn','Makan','Makanan'],['喝水','Hē shuǐ','Minum air','Makanan'],['好吃','Hǎochī','Enak','Makanan'],['菜单','Càidān','Menu','Makanan'],['米饭','Mǐfàn','Nasi','Makanan'],['不要辣','Bú yào là','Jangan pedas','Makanan'],
+['在哪里','Zài nǎlǐ','Di mana?','Arah'],['左边','Zuǒbian','Sebelah kiri','Arah'],['右边','Yòubian','Sebelah kanan','Arah'],['直走','Zhí zǒu','Jalan lurus','Arah'],['附近','Fùjìn','Di dekat sini','Arah'],['地铁站','Dìtiě zhàn','Stasiun MRT','Arah']
+];
+const dialogues=[
+{title:'Berkenalan',lines:[['A','你好！你叫什么名字？','Nǐ hǎo! Nǐ jiào shénme míngzi?','Halo! Siapa namamu?'],['B','我叫安迪。你呢？','Wǒ jiào Āndí. Nǐ ne?','Nama saya Andi. Kalau kamu?'],['A','我叫丽丽。很高兴认识你。','Wǒ jiào Lìlì. Hěn gāoxìng rènshi nǐ.','Nama saya Lili. Senang berkenalan denganmu.']]},
+{title:'Memesan makanan',lines:[['A','你好，我要一碗米饭。','Nǐ hǎo, wǒ yào yì wǎn mǐfàn.','Halo, saya mau semangkuk nasi.'],['B','好的。要喝什么？','Hǎo de. Yào hē shénme?','Baik. Mau minum apa?'],['A','我要一杯水。谢谢！','Wǒ yào yì bēi shuǐ. Xièxie!','Saya mau segelas air. Terima kasih!']]},
+{title:'Belanja',lines:[['A','这个多少钱？','Zhège duōshao qián?','Yang ini berapa harganya?'],['B','五十块。','Wǔshí kuài.','Lima puluh yuan.'],['A','有点贵，可以便宜一点吗？','Yǒudiǎn guì, kěyǐ piányi yìdiǎn ma?','Agak mahal, boleh lebih murah sedikit?']]},
+{title:'Menanyakan arah',lines:[['A','请问，地铁站在哪里？','Qǐngwèn, dìtiě zhàn zài nǎlǐ?','Permisi, stasiun MRT di mana?'],['B','直走，然后右转。','Zhí zǒu, ránhòu yòu zhuǎn.','Jalan lurus, lalu belok kanan.'],['A','谢谢你！','Xièxie nǐ!','Terima kasih!']]},
+{title:'Rencana akhir pekan',lines:[['A','周末你有空吗？','Zhōumò nǐ yǒu kòng ma?','Akhir pekan kamu ada waktu?'],['B','有空。我们去喝咖啡吧。','Yǒu kòng. Wǒmen qù hē kāfēi ba.','Ada. Ayo kita minum kopi.'],['A','好啊！','Hǎo a!','Boleh!']]}];
+const key='myMandarinLab_v11';let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){};let state={page:'home',category:'Semua',flash:0,revealed:false,dialog:0,quiz:[],qi:0,selected:null,score:0,...saved};
+function persist(){try{localStorage.setItem(key,JSON.stringify({learned:state.learned||[],best:state.best||0,completed:state.completed||[]}))}catch(e){}}
+function speak(text){if(!('speechSynthesis' in window)){alert('Audio tidak didukung browser ini.');return;}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang='zh-CN';u.rate=.78;u.pitch=1;u.volume=1;let vs=speechSynthesis.getVoices(),v=vs.find(x=>x.lang.toLowerCase()==='zh-cn')||vs.find(x=>x.lang.toLowerCase().startsWith('zh'));if(v)u.voice=v;u.onerror=e=>{if(!['canceled','interrupted'].includes(e.error))alert('Audio gagal: '+e.error+'; periksa suara Mandarin di pengaturan iPhone.')};window.currentUtterance=u;speechSynthesis.speak(u)}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const app=document.getElementById('app');
+function go(p){state.page=p;state.selected=null;render();scrollTo(0,0)}function mark(i){let a=state.learned||[];state.learned=a.includes(i)?a.filter(x=>x!==i):[...a,i];persist();render()}function category(c){state.category=c;render()}function nav(){let n=[['home','⌂','Beranda'],['vocab','字','Kosakata'],['dialog','☷','Dialog'],['flash','▣','Kartu'],['quiz','✓','Kuis']];document.getElementById('nav').innerHTML=n.map(([id,ic,t])=>`<button class="${state.page===id?'active':''}" onclick="go('${id}')"><span class="ico">${ic}</span>${t}</button>`).join('')}
+function home(){let count=(state.learned||[]).length;app.innerHTML=`<div class="card"><span class="pill">Level Dasar</span><h2>Selamat datang 👋</h2><p>Belajar kosakata, dengarkan pengucapan, lalu latih percakapan Mandarin sehari-hari.</p><button class="btn" onclick="go('vocab')">Mulai belajar →</button></div><div class="card"><h3>Progres Belajar</h3><div class="row"><strong>${count} / ${vocab.length} kosakata</strong><span class="muted">${Math.round(count/vocab.length*100)}%</span></div><div class="progress" style="margin:12px 0"><div style="width:${count/vocab.length*100}%"></div></div><p class="muted">Dialog dipelajari: ${(state.completed||[]).length} / ${dialogues.length} • Skor kuis terbaik: ${state.best||0}/10</p></div><div class="card"><h3>Latihan hari ini</h3><div class="hanzi">你好吗？</div><div class="pinyin">Nǐ hǎo ma?</div><p>Apa kabar?</p><button class="btn secondary" onclick="speak('你好吗？')">🔊 Dengarkan</button></div>`}
+function vocabulary(){let cats=['Semua',...new Set(vocab.map(x=>x[3]))];let items=vocab.map((v,i)=>({v,i})).filter(x=>state.category==='Semua'||x.v[3]===state.category);app.innerHTML=`<h2 class="section-title">Kosakata (${vocab.length})</h2><div class="chips">${cats.map(c=>`<button class="chip ${state.category===c?'active':''}" onclick="category('${c}')">${c}</button>`).join('')}</div><div class="card">${items.map(({v,i})=>`<div class="item"><div class="row"><div><strong style="font-size:25px">${esc(v[0])}</strong><div class="pinyin">${esc(v[1])}</div><div>${esc(v[2])}</div></div><div style="display:flex;gap:6px"><button class="btn secondary" aria-label="Dengarkan ${esc(v[0])}" onclick="speak(vocab[${i}][0])">🔊</button><button class="btn ${(state.learned||[]).includes(i)?'':'secondary'}" aria-label="Tandai dipelajari" onclick="mark(${i})">${(state.learned||[]).includes(i)?'✓':'○'}</button></div></div></div>`).join('')}</div>`}
+function dialogs(){let d=dialogues[state.dialog];app.innerHTML=`<h2 class="section-title">Latihan Percakapan</h2><div class="chips">${dialogues.map((x,i)=>`<button class="chip ${i===state.dialog?'active':''}" onclick="state.dialog=${i};render()">${i+1}. ${esc(x.title)}</button>`).join('')}</div><div class="card"><h3>${esc(d.title)}</h3>${d.lines.map((l,i)=>`<div class="dialogue"><div class="muted">Pembicara ${l[0]}</div><strong>${esc(l[1])}</strong><p class="pinyin">${esc(l[2])}</p><p>${esc(l[3])}</p><button class="btn secondary" onclick="speak(dialogues[${state.dialog}].lines[${i}][1])">🔊 Dengarkan</button></div>`).join('')}<button class="btn" onclick="completeDialog()">${(state.completed||[]).includes(state.dialog)?'✓ Sudah dipelajari':'Tandai sudah dipelajari'}</button></div>`}
+function completeDialog(){let a=state.completed||[];if(!a.includes(state.dialog))state.completed=[...a,state.dialog];persist();render()}
+function flash(){let i=state.flash%vocab.length,v=vocab[i];app.innerHTML=`<h2 class="section-title">Flashcards</h2><p class="muted">Ketuk kartu untuk melihat Pinyin dan arti.</p><div class="card center flash" onclick="state.revealed=!state.revealed;render()"><div class="muted">Kartu ${i+1} dari ${vocab.length}</div><div class="hanzi" style="font-size:52px">${esc(v[0])}</div>${state.revealed?`<div class="pinyin">${esc(v[1])}</div><p>${esc(v[2])}</p>`:'<p class="muted">Ketuk untuk membuka jawaban</p>'}</div><div class="row"><button class="btn secondary" onclick="state.flash=(state.flash+vocab.length-1)%vocab.length;state.revealed=false;render()">← Sebelumnya</button><button class="btn secondary" onclick="speak(vocab[${i}][0])">🔊 Audio</button><button class="btn" onclick="state.flash=(state.flash+1)%vocab.length;state.revealed=false;render()">Berikutnya →</button></div>`}
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}function startQuiz(){state.quiz=shuffle(vocab.map((v,i)=>i)).slice(0,10).map(i=>{let others=shuffle(vocab.map((v,j)=>j).filter(j=>j!==i&&v[2]!==vocab[i][2])).slice(0,3);return {i,options:shuffle([i,...others])}});state.qi=0;state.score=0;state.selected=null;render()}
+function selectAnswer(i){if(state.selected!==null)return;state.selected=i;if(i===state.quiz[state.qi].i)state.score++;render()}function nextQuestion(){state.qi++;state.selected=null;if(state.qi===10){state.best=Math.max(state.best||0,state.score);persist()}render()}
+function quiz(){if(!state.quiz.length){app.innerHTML='<div class="card center"><h2>Kuis Kosakata</h2><p>10 soal pilihan ganda. Pilih arti yang tepat untuk setiap kata Mandarin.</p><button class="btn" onclick="startQuiz()">Mulai kuis</button></div>';return}if(state.qi>=10){app.innerHTML=`<div class="card center"><h2>Kuis selesai! 🎉</h2><div class="hanzi">${state.score}/10</div><p>Skor terbaik: ${state.best||0}/10</p><button class="btn" onclick="startQuiz()">Coba lagi</button></div>`;return}let q=state.quiz[state.qi],v=vocab[q.i];app.innerHTML=`<h2 class="section-title">Kuis Mandarin</h2><div class="row"><span>Soal ${state.qi+1} / 10</span><span class="muted">Skor: ${state.score}</span></div><div class="progress" style="margin:12px 0 18px"><div style="width:${state.qi*10}%"></div></div><div class="card"><p>Apakah arti dari kata berikut?</p><div class="hanzi">${esc(v[0])}</div><button class="btn secondary" onclick="speak(vocab[${q.i}][0])">🔊 Dengarkan</button><div style="margin-top:20px">${q.options.map(i=>`<button class="answer ${state.selected!==null?(i===q.i?'correct':i===state.selected?'wrong':''):''}" onclick="selectAnswer(${i})">${esc(vocab[i][2])}</button>`).join('')}</div>${state.selected!==null?`<p><strong>${state.selected===q.i?'Benar!':'Belum tepat.'}</strong> ${esc(v[0])} (${esc(v[1])}) berarti ${esc(v[2])}.</p><button class="btn" onclick="nextQuestion()">${state.qi===9?'Lihat hasil':'Soal berikutnya →'}</button>`:''}</div>`}
+function render(){nav();({home,vocab:vocabulary,dialog:dialogs,flash,quiz}[state.page]||home)()}render();
+</script></body></html>
