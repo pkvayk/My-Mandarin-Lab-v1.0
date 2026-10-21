@@ -58,13 +58,48 @@
       <p>Mulai perjalanan belajar Mandarin Anda!</p>
     </div>
   </main>
-  <script>
-    function speak() {
-      const utterance = new SpeechSynthesisUtterance("你好");
-      utterance.lang = "zh-CN";
-      utterance.rate = 0.8;
-      speechSynthesis.speak(utterance);
+  
+<script>
+  let currentSpeech = null;
+
+  function speak() {
+    if (!("speechSynthesis" in window)) {
+      alert("Browser tidak mendukung audio.");
+      return;
     }
-  </script>
+
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance("你好");
+    speech.lang = "zh-CN";
+    speech.rate = 0.75;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    const voices = window.speechSynthesis.getVoices();
+    const chineseVoice = voices.find(v =>
+      v.lang.toLowerCase().startsWith("zh")
+    );
+
+    if (chineseVoice) {
+      speech.voice = chineseVoice;
+    }
+
+    speech.onerror = function(event) {
+      if (event.error !== "canceled" &&
+          event.error !== "interrupted") {
+        alert("Audio gagal: " + event.error);
+      }
+    };
+
+    currentSpeech = speech;
+    window.speechSynthesis.speak(speech);
+  }
+
+  window.speechSynthesis.onvoiceschanged = function() {
+    window.speechSynthesis.getVoices();
+  };
+</script>
+
 </body>
 </html>
